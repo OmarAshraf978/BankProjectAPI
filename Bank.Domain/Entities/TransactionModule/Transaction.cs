@@ -9,6 +9,7 @@ using Bank.Domain.Entities.AccountModule;
 
 namespace Bank.Domain.Entities.TransactionModule
 {
+    #region TransactionModule
     public class Transaction
     {
         public int Id { get; set; }
@@ -23,4 +24,17 @@ namespace Bank.Domain.Entities.TransactionModule
         public TransactionType Type { get; set; }
         public  DateTimeOffset CreatedAt { get; set; }
     }
+    public enum TransactionStatus
+    {
+        Success = 1,
+        Failed = 2,
+        Pending = 3
+    }
+    public enum TransactionType
+    {
+        Deposit = 1,
+        Withdraw = 2,
+        Transfer = 3
+    }
+    #endregion
 }
