@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Bank.Presentation.Controllers
 {
+    #region ApiBaseController
     [ApiController]
     [Route("api/[controller]")]
     public class ApiBaseController : ControllerBase
@@ -71,4 +72,5 @@ namespace Bank.Presentation.Controllers
             _ => StatusCodes.Status500InternalServerError
         };
     }
+    #endregion
 }
