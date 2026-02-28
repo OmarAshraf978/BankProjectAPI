@@ -6,11 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Bank.ServiceAbstraction.Services_Abstraction;
 using Bank.Shared.DTO.AccountDto;
+using Bank.Shared.DTO.IdentityDto;
+using Bank.Shared.DTO.TransactionsDto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bank.Presentation.Controllers
 {
+    #region Controllers
     public class AccountController : ApiBaseController
     {
         private readonly IAccountService _accountService;
@@ -87,4 +90,101 @@ namespace Bank.Presentation.Controllers
             return HandleResult(Result);
         }
     }
+    public class AuthenticationController : ApiBaseController
+    {
+        private readonly IAuthenticationService _authenticationService;
+
+        public AuthenticationController(IAuthenticationService authenticationService)
+        {
+            _authenticationService = authenticationService;
+        }
+
+        [HttpPost("Register")]
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        {
+            var Result = await _authenticationService.RegisterAsync(registerDto);
+            return HandleResult(Result);
+        }
+
+        [HttpPost("Login")]
+        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+        {
+            var Result = await _authenticationService.LoginAsync(loginDto);
+            return HandleResult(Result);
+        }
+
+        [HttpGet("CheckEmail")]
+        public async Task<ActionResult<UserExistsDto>> CheckEmail(string email)
+        {
+            var Result = await _authenticationService.UserExistsAsync(email);
+            return HandleResult(Result);
+        }
+
+        [Authorize]
+        [HttpGet("GetUserByEmail")]
+        public async Task<ActionResult<UserDto>> GetUserByEmail()
+        {
+            var Email = User.FindFirstValue(ClaimTypes.Email)!;
+            var Result = await _authenticationService.GetUserByEmailAsync(Email);
+            return HandleResult(Result);
+        }
+
+        [Authorize]
+        [HttpPost("LogOut")]
+        public async Task<ActionResult<LogOutDto>> LogOut(string email)
+        {
+            var Result = await _authenticationService.LogOutAsync(email);
+            return HandleResult(Result);
+        }
+    }
+    public class TransactionController : ApiBaseController
+    {
+        private readonly ITransactionService _transactionService;
+
+        public TransactionController(ITransactionService transactionService)
+        {
+            _transactionService = transactionService;
+        }
+
+        [Authorize]
+        [HttpPost("CreateTransaction")]
+        public async Task<ActionResult<TransactionToReturnDto>> CreateTransaction(TransactionDto transactionDto)
+        {
+            var Result = await _transactionService.CreateTransactionAsync(transactionDto);
+            return HandleResult(Result);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("GetAllTransactions")]
+        public async Task<ActionResult<IEnumerable<TransactionToReturnDto>>> GetAllTransactions()
+        {
+            var Result = await _transactionService.GetAllTransactionsAsync();
+            return HandleResult(Result);
+        }
+
+        [Authorize]
+        [HttpGet("GetAllTransactionsByAccountId")]
+        public async Task<ActionResult<IEnumerable<TransactionToReturnDto>>> GetAllTransactionsByAccountId(int AccountId)
+        {
+            var Result = await _transactionService.GetAllTransactionsByAccountIdAsync(AccountId);
+            return HandleResult(Result);
+        }
+
+        [Authorize(Roles = "Admin,Teller")]
+        [HttpGet("GetTransactionById")]
+        public async Task<ActionResult<TransactionToReturnDto>> GetTransactionByTransactionId(int TransactionId)
+        {
+            var Result = await _transactionService.GetTransactionByIdAsync(TransactionId);
+            return HandleResult(Result);
+        }
+
+        [Authorize(Roles = "Admin,Teller")]
+        [HttpGet("GetTransactionsByStatus")]
+        public async Task<ActionResult<IEnumerable<TransactionToReturnDto>>> GetTransactionsByStatus(string status)
+        {
+            var Result = await _transactionService.GetTransactionsByStatusAsync(status);
+            return HandleResult(Result);
+        }
+    }
+    #endregion
 }
