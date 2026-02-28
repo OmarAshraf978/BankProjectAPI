@@ -8,6 +8,7 @@ using Bank.Domain.Entities.TransactionModule;
 
 namespace Bank.Domain.Entities.AccountModule
 {
+    #region BankAccountModule
     public class BankAccount
     {
         public int Id { get; set; }
@@ -20,4 +21,17 @@ namespace Bank.Domain.Entities.AccountModule
         public ICollection<Transaction> Transactions { get; set; } = new HashSet<Transaction>();
         public ICollection<Transaction> TargetTransactions { get; set; } = new HashSet<Transaction>();
     }
+    public enum AccountType
+    {
+        Saving = 1,
+        Current = 2,
+        Business = 3
+    }
+    public enum AccountStatus
+    {
+        Active = 1,
+        Blocked = 2,
+        Closed = 3
+    }
+    #endregion
 }
