@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bank.Domain.Repository
 {
+    #region GenericRepository
     public interface IGenericRepository<TEntity, TKey> where TEntity : class
     {
         public Task<IEnumerable<TEntity>> GetAllAsync();
@@ -16,4 +17,6 @@ namespace Bank.Domain.Repository
         public void Update(TEntity entity);
         public void Delete(TEntity entity);
     }
+
+    #endregion
 }

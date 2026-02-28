@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bank.Presentation.Controllers
 {
+    #region Controllers
     public class AccountController : ApiBaseController
     {
         private readonly IAccountService _accountService;
@@ -87,4 +88,5 @@ namespace Bank.Presentation.Controllers
             return HandleResult(Result);
         }
     }
+    #endregion
 }

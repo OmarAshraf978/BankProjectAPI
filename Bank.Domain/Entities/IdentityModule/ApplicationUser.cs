@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Bank.Domain.Entities.IdentityModule
 {
+    #region IdentityModule
     public class ApplicationUser : IdentityUser
     {
         public string FullName { get; set; } = default!;
@@ -18,4 +19,5 @@ namespace Bank.Domain.Entities.IdentityModule
         public string? RefreshToken { get; set; } 
         public Address? Address { get; set; } 
     }
+    #endregion
 }

@@ -8,6 +8,7 @@ using Bank.Shared.ResultPattern;
 
 namespace Bank.ServiceAbstraction.Services_Abstraction
 {
+    #region AuthenticationService
     public interface IAuthenticationService
     {
         public Task<Result<UserDto>> RegisterAsync(RegisterDto registerDto);
@@ -16,4 +17,5 @@ namespace Bank.ServiceAbstraction.Services_Abstraction
         public Task<Result<UserDto>> GetUserByEmailAsync(string email);
         public Task<Result<LogOutDto>> LogOutAsync(string email);
     }
+    #endregion
 }

@@ -8,6 +8,7 @@ using Bank.Shared.ResultPattern;
 
 namespace Bank.ServiceAbstraction.Services_Abstraction
 {
+    #region AccountService
     public interface IAccountService
     {
         public Task<Result<BankAccountDto>> CreateAccountAsync(BankAccountDto accountDto, string UserId);
@@ -19,4 +20,6 @@ namespace Bank.ServiceAbstraction.Services_Abstraction
         public Task<Result<DeleteAccountDto>> DeleteAccountAsync(int AccountId);
         public Task<Result<GetAccountDetailsDto>> GetAccountDetailsAsync(int AccountId, string UserId);
     }
+
+    #endregion
 }

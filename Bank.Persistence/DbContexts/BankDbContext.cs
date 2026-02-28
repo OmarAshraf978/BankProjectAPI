@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bank.Persistence.DbContexts
 {
+    #region Contexts
     public class BankDbContext : DbContext
     {
         public BankDbContext(DbContextOptions<BankDbContext> options) : base(options) { }
@@ -19,4 +20,6 @@ namespace Bank.Persistence.DbContexts
         public DbSet<BankAccount> BankAccounts { get; set; }
         public DbSet<Transaction> transactions { get; set; }
     }
+
+    #endregion
 }

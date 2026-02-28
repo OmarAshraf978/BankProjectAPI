@@ -8,6 +8,7 @@ using Bank.Shared.ResultPattern;
 
 namespace Bank.ServiceAbstraction.Services_Abstraction
 {
+    #region TransactionService
     public interface ITransactionService
     {
         public Task<Result<TransactionToReturnDto>> CreateTransactionAsync(TransactionDto transactionDto);
@@ -16,4 +17,5 @@ namespace Bank.ServiceAbstraction.Services_Abstraction
         public Task<Result<IEnumerable<TransactionToReturnDto>>> GetAllTransactionsByAccountIdAsync(int AccountId);
         Task<Result<IEnumerable<TransactionToReturnDto>>> GetTransactionsByStatusAsync(string status);
     }
+    #endregion
 }

@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Bank.Web
 {
+    #region MainProgram
     public class Program
     {
         public static void Main(string[] args)
@@ -91,4 +92,5 @@ namespace Bank.Web
             app.Run();
         }
     }
+    #endregion
 }
